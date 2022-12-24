@@ -18,8 +18,10 @@ namespace ConsoleApp4
             Console.CursorVisible = false;
 
             bool isPlaying = true;
-            int playerX, playerY;
-            int playerDX = 0, playerDY = 1;
+            int playerX;
+            int playerY;
+            int playerDX = 0;
+            int playerDY = 1;
             char[,] map = ReadMap("Map", out playerX, out playerY);
 
             DrawMap(map);
@@ -40,34 +42,34 @@ namespace ConsoleApp4
             }
         }
 
-        static void ChangeDirection(ConsoleKeyInfo key, ref int DX,ref int DY)
+        static void ChangeDirection(ConsoleKeyInfo key, ref int dX,ref int dY)
         {
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    DX = -1; DY = 0;
+                    dX = -1; dY = 0;
                     break;
                 case ConsoleKey.DownArrow:
-                    DX = 1; DY = 0;
+                    dX = 1; dY = 0;
                     break;
                 case ConsoleKey.LeftArrow:
-                    DX = 0; DY = -1;
+                    dX = 0; dY = -1;
                     break;
                 case ConsoleKey.RightArrow:
-                    DX = 0; DY = 1;
+                    dX = 0; dY = 1;
                     break;
             }
         }
 
-        static void Move(ref int X, ref int Y, int DX, int DY)
+        static void Move(ref int x, ref int y, int dX, int dY)
         {
-            Console.SetCursorPosition(Y, X);
+            Console.SetCursorPosition(y, x);
             Console.Write(' ');
 
-            X += DX;
-            Y += DY;
+            x += dX;
+            y += dY;
 
-            Console.SetCursorPosition(Y, X);
+            Console.SetCursorPosition(y, x);
             Console.Write("@");
         }
 
