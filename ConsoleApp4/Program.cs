@@ -71,16 +71,16 @@ namespace ConsoleApp4
             }
         }
 
-        static void Move(ref int x, ref int y, int directionX, int directionY)
+        static void Move(ref int positionX, ref int positionY, int directionX, int directionY)
         {
             char playerImage = '@';
-            Console.SetCursorPosition(y, x);
+            Console.SetCursorPosition(positionY, positionX);
             Console.Write(' ');
 
-            x += directionX;
-            y += directionY;
+            positionX += directionX;
+            positionY += directionY;
 
-            Console.SetCursorPosition(y, x);
+            Console.SetCursorPosition(positionY, positionX);
             Console.Write(playerImage);
         }
 
