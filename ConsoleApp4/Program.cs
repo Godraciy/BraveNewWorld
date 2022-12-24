@@ -45,21 +45,26 @@ namespace ConsoleApp4
 
         static void ChangeDirection(ConsoleKeyInfo key, ref int directionX, ref int directionY)
         {
+            const ConsoleKey MoveUp = ConsoleKey.UpArrow;
+            const ConsoleKey MoveDown = ConsoleKey.DownArrow;
+            const ConsoleKey MoveLeft = ConsoleKey.LeftArrow;
+            const ConsoleKey MoveRight = ConsoleKey.RightArrow;
+
             switch (key.Key)
             {
-                case ConsoleKey.UpArrow:
+                case MoveUp:
                     directionX = -1; 
                     directionY = 0;
                     break;
-                case ConsoleKey.DownArrow:
+                case MoveDown:
                     directionX = 1; 
                     directionY = 0;
                     break;
-                case ConsoleKey.LeftArrow:
+                case MoveLeft:
                     directionX = 0; 
                     directionY = -1;
                     break;
-                case ConsoleKey.RightArrow:
+                case MoveRight:
                     directionX = 0; 
                     directionY = 1;
                     break;
