@@ -18,11 +18,12 @@ namespace ConsoleApp4
             Console.CursorVisible = false;
 
             bool isPlaying = true;
-            int playerX;
-            int playerY;
-            int playerDX = 0;
-            int playerDY = 1;
-            char[,] map = ReadMap("Map", out playerX, out playerY);
+            int playerPositionX;
+            int playerPositionY;
+            int playerDirectionX = 0;
+            int playerDirectionY = 1;
+            char[,] map = ReadMap("Map", out playerPositionX, out playerPositionY);
+            char wallImage = '#';
 
             DrawMap(map);
 
@@ -32,45 +33,50 @@ namespace ConsoleApp4
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
 
-                    ChangeDirection(key, ref playerDX, ref playerDY);
+                    ChangeDirection(key, ref playerDirectionX, ref playerDirectionY);
 
-                    if (map[playerX + playerDX, playerY + playerDY] != '#')
+                    if (map[playerPositionX + playerDirectionX, playerPositionY + playerDirectionY] != wallImage)
                     {
-                        Move(ref playerX,ref playerY, playerDX, playerDY);
+                        Move(ref playerPositionX,ref playerPositionY, playerDirectionX, playerDirectionY);
                     }
                 }
             }
         }
 
-        static void ChangeDirection(ConsoleKeyInfo key, ref int dX,ref int dY)
+        static void ChangeDirection(ConsoleKeyInfo key, ref int directionX, ref int directionY)
         {
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    dX = -1; dY = 0;
+                    directionX = -1; 
+                    directionY = 0;
                     break;
                 case ConsoleKey.DownArrow:
-                    dX = 1; dY = 0;
+                    directionX = 1; 
+                    directionY = 0;
                     break;
                 case ConsoleKey.LeftArrow:
-                    dX = 0; dY = -1;
+                    directionX = 0; 
+                    directionY = -1;
                     break;
                 case ConsoleKey.RightArrow:
-                    dX = 0; dY = 1;
+                    directionX = 0; 
+                    directionY = 1;
                     break;
             }
         }
 
-        static void Move(ref int x, ref int y, int dX, int dY)
+        static void Move(ref int x, ref int y, int directionX, int directionY)
         {
+            char playerImage = '@';
             Console.SetCursorPosition(y, x);
             Console.Write(' ');
 
-            x += dX;
-            y += dY;
+            x += directionX;
+            y += directionY;
 
             Console.SetCursorPosition(y, x);
-            Console.Write("@");
+            Console.Write(playerImage);
         }
 
         static void DrawMap(char[,] map)
@@ -85,10 +91,11 @@ namespace ConsoleApp4
             }
         }
 
-        static char[,] ReadMap(string mapName, out int playerX,out int playerY)
+        static char[,] ReadMap(string mapName, out int playerPositionX, out int playerPositionY)
         {
-            playerX = 0;
-            playerY = 0;
+            char playerImage = '@';
+            playerPositionX = 0;
+            playerPositionY = 0;
             string[] newFile = File.ReadAllLines($"Maps/{mapName}.txt");
             char[,] map = new char[newFile.Length, newFile[0].Length];
 
@@ -98,10 +105,10 @@ namespace ConsoleApp4
                 {
                     map[i,j] = newFile[i][j];
 
-                    if(map[i,j] == '@')
+                    if(map[i,j] == playerImage)
                     {
-                        playerX= i;
-                        playerY= j;
+                        playerPositionX = i;
+                        playerPositionY = j;
                     }
                 }
             }
